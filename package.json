@@ -1,0 +1,8 @@
+{
+  "name": "taskapp",
+  "version": "0.1.0",
+  "main": "index.html",
+  "dependencies": {
+    "menubar": "^2.0.17"
+  }
+}
