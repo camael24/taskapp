@@ -18,6 +18,9 @@ body { }
     #cell-content {
         flex-basis: calc(100% - 52px);
     }
+    #cell-new {
+        flex-basis: calc(100% - 52px);
+    }
 }
 
 .toDelete {
@@ -25,5 +28,5 @@ body { }
 }
 
 #cell-content {
-    /* display: none; */ 
+    display: none;
 }

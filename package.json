@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "main": "index.html",
   "dependencies": {
-    "menubar": "^2.0.17"
+    "menubar": "^2.0.17",
+    "node-rest-client": "~1.5.1"
   }
 }

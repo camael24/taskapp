@@ -19,16 +19,19 @@
     <div class="page-content">
         <div class="flex-grid no-responsive-future" style="height: 100%;">
             <div class="row" style="height: 100%">
-                <div class="cell size-x200" id="cell-sidebar" style="background-color: #71b1d1; height: 100%">
-                    <h3>Boards</h3>
-                    <ul class="sidebar boardsListing">
-                        <li><a href="new.html">
-                            <span class="mif-plus icon"></span>
-                            <span class="title">New Board</span>
-                        </a></li>
+                <div class="cell size-x200 " id="cell-sidebar" style="padding-top: 1px" >
+                    <ul class="sidebar2 dark">
+                        <li class="stick bg-green">
+                                <a class="dropdown-toggle" href="#"><span class="mif-tree icon"></span>Boards</a>
+                                <ul class="d-menu boardsListing" data-role="dropdown" style="display: block">
+                                    <li class="disabled"><a href="">Subitem 5</a></li>
+                                </ul>
+                            </li>
+                        <li><a href="new.html"><span class="mif-plus icon"></span>New Board</a></li>
+                        <li><a href="settings.html"><span class="mif-cog icon"></span>Settings</a></li>
                     </ul>
+                     
                 </div>
-
                 <div class="cell auto-size padding20 bg-white" id="cell-content">
                     <h1 class="text-light">Board: <span>Foo</span></h1>
                     <hr class="thin bg-grayLighter">

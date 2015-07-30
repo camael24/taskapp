@@ -8,7 +8,7 @@ var pass = 'admin';
 var token = null;
 var url_login = host + '/api/login';
 var url_boards = host + '/api/boards';
-var url_board = host + '/api/board/';
+var currentBoard = null;
 
 $(function(){
 	if(token == null) {
@@ -48,11 +48,12 @@ $(function(){
 
 		for(var i = 0; i < data.length; i++) {
 			console.log(data[i]);
-			html += '<li class="board" data-id="'+data[i].id+'"><a href="#"><span class="mif-apps icon"></span><span class="title">'+data[i].name+'</span><span class="counter"></span></a></li>'
+			html += '<li data-id="'+data[i].id+'"><a href="#">'+data[i].name+'</a></li>';
 			
 		}
 
-		child.before(html);
+		child.after(html);
+        child.first().remove();
 	}
 
 
@@ -73,8 +74,27 @@ $(function(){
 	    }
 	}
 
+
+    function post(u, a, f) {
+           if(token != null) {
+
+            var args = {
+                data: a,
+                headers: {
+                    "Authorization": token,
+                    "Content-Type": "application/json"
+                }
+            }
+
+
+            client.post(u, args, f);
+        }
+    }
+
+
  	function loadBoard(id) {
- 		$('#cell-content').show();
+ 		
+        currentBoard = id;
         get(url_boards, function (data) {
             data = data.data;
             console.log(data);
@@ -93,6 +113,7 @@ $(function(){
             			html += '<option value="'+ lane.id+'">'+lane.name+'</option>';
             		}
 					$('#lane').children().after(html);
+                    $('#lane').children().first().remove();
 
 					// Category
 					var html = '';
@@ -102,6 +123,7 @@ $(function(){
             			html += '<option value="'+ cat.id+'">'+cat.name+'</option>';
             		}
 					$('#category').children().after(html);
+                    // $('#category').children().first().remove();
             		
 
             		//Assign to
@@ -112,18 +134,27 @@ $(function(){
             			html += '<option value="'+ ass.id+'">'+ass.username+'</option>';
             		}
 					$('#assign').children().after(html);
-
-
+                    // $('#assign').children().first().remove();
+                    
+                    $('#cell-content').show();
             		return;
             	}
             }
         });
     }
 
+    function notify(status, message) {
+        console.log(message);
+    }
+
+    function reset() {
+        window.location.reload();
+    }
+
 	//  Animation 
-    $('.sidebar').on('click', 'li', function(){
+    $('.sidebar2').on('click', 'li', function(){
         if (!$(this).hasClass('active')) {
-            $('.sidebar li').removeClass('active');
+            $('.sidebar2 li').removeClass('active');
             $(this).addClass('active');
         }
 
@@ -136,4 +167,59 @@ $(function(){
 
     $('.accordion').accordion();
 
+    $('input[type="submit"].success').click(function(e) {
+    	e.preventDefault();
+
+// {"title":"ff","description":"","assignee":0,"category":0,"color":"#ffffe0","dueDate":null,"points":null,"lane":"1"}     
+
+        var _post = {
+    		title: $('input[name="name').val(),
+    		description: $('textarea[name="description"]').val(),
+            assignee: $('select[name="assign"]').val(),
+            category: $('select[name="category"]').val(),
+    		color: $('input[name="color"]').val(),
+            dueDate: $('input[name="date"]').val(),
+            points: $('input[name="point"]').val(),
+            lane: $('select[name="lane"]').val()
+    	}
+
+        if(_post.color == '')
+            _post.color ='#ffffe0';
+
+        if(_post.dueDate == '')
+            _post.dueDate = null;
+
+        if(_post.points == '')
+            _post.points = null;
+
+        if(_post.assignee == '')
+            _post.assignee = 0;
+
+        if(_post.category == '')
+            _post.category = 0;
+
+
+        if(_post.title != '') {
+            if(currentBoard != null) {
+                post(url_boards +'/'+currentBoard + '/items', _post, function (data, response) {
+                    if(data.alerts[0].type == 'success') {
+
+                        notify('success', 'Item created');
+                        reset();
+                    }
+                });
+            }
+        }
+        else {
+            notify('error', 'Error name are empty');
+        }
+
+    	console.log(_post);
+    });
+
+        $('#select-lane').select2({
+          // specify tags
+           tags: true,
+  tokenSeparators: [',', ' ']
+        });
 })
