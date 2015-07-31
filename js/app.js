@@ -7,8 +7,6 @@ client = new Client();
 var token = sessionStorage.token;
 var currentBoard = null;
 
-console.log(token, user, pass, host);
-
 $(function(){
 
     if(host == undefined) {
@@ -17,26 +15,7 @@ $(function(){
 
 
 	if(token == undefined) {
-	    var args = {
-	        data: { username: "admin", password: "admin", rememberme: false},
-	        headers:{"Content-Type": "application/json"} 
-	    };
-	    
-
-	    client.post(url_login, args, function(data,response) {
-	        
-	        if(data.message == "Login successful.") {
-	            
-                sessionStorage.token = data.data;
-                token = data.data;
-	            updateAll();
-	        }
-	        else {
-                notify('error' , 'Credential not valid');
-	            // console.log(response);
-	        }
-
-	    });
+	   document.location.href="settings.html"
 	}
     else {
         updateAll();
