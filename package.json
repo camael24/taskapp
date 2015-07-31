@@ -8,7 +8,7 @@
   },
   "window": {
     "title": "node-webkit demo",
-    "icon": "link.png",
+    "icon": "img/icon.png",
     "toolbar": true,
     "frame": true,
     "position": "mouse",
