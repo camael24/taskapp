@@ -5,8 +5,6 @@ client = new Client();
 
 
 $(function(){
-
-console.log(user, pass, host);
     $('input[name="username"]').val(user);
     $('input[name="password"]').val(pass);
     $('input[name="url"]').val(host);
