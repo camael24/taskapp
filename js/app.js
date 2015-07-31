@@ -178,9 +178,9 @@ $(function(){
     }
 
 	//  Animation 
-    $('.sidebar2').on('click', 'li', function(){
+    $('.sidebar2').on('click', 'li > ul > li', function(){
         if (!$(this).hasClass('active')) {
-            $('.sidebar2 li').removeClass('active');
+            $('.sidebar2 li ul li').removeClass('active');
             $(this).addClass('active');
         }
 
