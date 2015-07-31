@@ -2,7 +2,7 @@ var Client = require('node-rest-client').Client;
  
 client = new Client();
 
-var token = sessionStorage.token;
+
 
 $(function(){
 
@@ -30,11 +30,11 @@ console.log(user, pass, host);
 
              if(data.message == "Login successful.") {
  
-                ls.user                 = $('input[name="username"]').val();
-                ls.pass                 = $('input[name="password"]').val();
-                ls.url                  = $('input[name="url"]').val();
-                sessionStorage.token    = data.data;
-                token                   = data.data;
+                ls.user     = $('input[name="username"]').val();
+                ls.pass     = $('input[name="password"]').val();
+                ls.url      = $('input[name="url"]').val();
+                ls.token    = data.data;
+                token       = data.data;
                 notify('success' , 'Credential are valid', true);
              }
              else {

@@ -2,9 +2,6 @@ var Client = require('node-rest-client').Client;
  
 client = new Client();
  
-
-
-var token = sessionStorage.token;
 var currentBoard = null;
 
 $(function(){
@@ -22,7 +19,6 @@ $(function(){
     }
 
 	function updateAll() {
-        console.log('update');
 	 	get(url_boards, function (data, response) {
 	            updateBoards(data.data);
 	        });
