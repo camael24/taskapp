@@ -5,5 +5,16 @@
   "dependencies": {
     "menubar": "^2.0.17",
     "node-rest-client": "~1.5.1"
+  },
+  "window": {
+    "title": "node-webkit demo",
+    "icon": "link.png",
+    "toolbar": true,
+    "frame": true,
+    "position": "mouse",
+    "width" : 880,
+    "height" : 660,
+    "min_width": 880,
+    "min_height": 660
   }
 }

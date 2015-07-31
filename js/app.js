@@ -2,16 +2,21 @@ var Client = require('node-rest-client').Client;
  
 client = new Client();
  
-var host = 'http://127.0.0.1:8080';
-var user = 'admin';
-var pass = 'admin';
-var token = null;
-var url_login = host + '/api/login';
-var url_boards = host + '/api/boards';
+
+
+var token = sessionStorage.token;
 var currentBoard = null;
 
+console.log(token, user, pass, host);
+
 $(function(){
-	if(token == null) {
+
+    if(host == undefined) {
+        notify('error', 'Check settings page');
+    }
+
+
+	if(token == undefined) {
 	    var args = {
 	        data: { username: "admin", password: "admin", rememberme: false},
 	        headers:{"Content-Type": "application/json"} 
@@ -21,33 +26,36 @@ $(function(){
 	    client.post(url_login, args, function(data,response) {
 	        
 	        if(data.message == "Login successful.") {
-	            token = data.data;
+	            
+                sessionStorage.token = data.data;
+                token = data.data;
 	            updateAll();
 	        }
 	        else {
-	            console.log(response);
+                notify('error' , 'Credential not valid');
+	            // console.log(response);
 	        }
 
 	    });
 	}
+    else {
+        updateAll();
+    }
 
 	function updateAll() {
+        console.log('update');
 	 	get(url_boards, function (data, response) {
 	            updateBoards(data.data);
 	        });
 	}
 
 	function updateBoards(data) {
-
-	    console.log(data);
-
 	   	// $('.boardsListing').empty();
 		
 		var child = $('.boardsListing').children();
 		var html = '';
 
 		for(var i = 0; i < data.length; i++) {
-			console.log(data[i]);
 			html += '<li data-id="'+data[i].id+'"><a href="#">'+data[i].name+'</a></li>';
 			
 		}
@@ -97,10 +105,14 @@ $(function(){
         currentBoard = id;
         get(url_boards, function (data) {
             data = data.data;
-            console.log(data);
+            
+
+
+
             for(var i = 0; i < data.length; i++) {
 
             	if(id = data[i].id) {
+
             		current = data[i];
 
             		$('#cell-content > .text-light > span').text(current.name);
@@ -143,8 +155,22 @@ $(function(){
         });
     }
 
-    function notify(status, message) {
-        console.log(message);
+    function notify(status, message, reload) {
+
+        var n = noty({
+            type: status,
+            text: message,
+            timeout: 2000,
+            callback: {
+                afterClose: function(reload) {
+                    if(reload != undefined && reload == true) {
+                        reset();
+                    }
+                },
+            }
+        });
+
+        // console.log(message);
     }
 
     function reset() {
@@ -204,8 +230,7 @@ $(function(){
                 post(url_boards +'/'+currentBoard + '/items', _post, function (data, response) {
                     if(data.alerts[0].type == 'success') {
 
-                        notify('success', 'Item created');
-                        reset();
+                        notify('success', 'Item created', true);
                     }
                 });
             }
@@ -214,12 +239,9 @@ $(function(){
             notify('error', 'Error name are empty');
         }
 
-    	console.log(_post);
     });
 
-        $('#select-lane').select2({
-          // specify tags
-           tags: true,
-  tokenSeparators: [',', ' ']
-        });
+
+    
+
 })

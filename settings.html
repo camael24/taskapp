@@ -1,1 +1,73 @@
-<p>Settings page</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Taskapp</title>
+
+    <link href="css/metro.css" rel="stylesheet">
+    <link href="css/metro-icons.css" rel="stylesheet">
+    <link href="css/metro-responsive.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+    
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.datatable.min.js"></script>
+    <script src="js/metro.js"></script>
+    <script src="js/noty.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/settings.js"></script>
+    <script>
+
+
+
+	</script>
+</head>
+<body class="bg-steel">
+    <div class="page-content">
+        <div class="flex-grid no-responsive-future" style="height: 100%;">
+            <div class="row" style="height: 100%">
+                <div class="cell size-x200 " id="cell-sidebar" style="padding-top: 1px" >
+                    <ul class="sidebar2 dark">
+                        <li><a href="index.html"><span class="mif-chevron-left icon"></span>Retour</a></li>
+                    </ul>
+                     
+                </div>
+                <div class="cell auto-size padding20 bg-white" id="cell-new">
+                    <h1 class="text-light">Paramètres</h1>
+                    <hr class="thin bg-grayLighter">
+                   	<form class="grid">
+                    	<div class="accordion">
+	                    	<div class="row cells12">
+	      						<h5 class="cell colspan3">Utilisateur:</h5>
+	                        	<label class="input-control text cell colspan7">
+		                            <input name="username" type="text" placeholder="Username" class="cell" required/>
+                        		</label>
+                        	</div>
+                        	<div class="row cells12">
+	      						<h5 class="cell colspan3">Mot de passe:</h5>
+	                        	<label class="input-control text cell colspan7">
+		                            <input name="password" type="text" placeholder="Password" class="cell" required/>
+                        		</label>
+                        	</div>
+                        	<div class="row cells12">
+	      						<h5 class="cell colspan3">Url:</h5>
+	                        	<label class="input-control text cell colspan7">
+		                            <input name="url" type="text" placeholder="Url du serveur TaskBoard" class="cell" required/>
+                        		</label>
+                        	</div>
+	                        <div class="row cells12">
+                                <h5 class="cell colspan3">Token:</h5>
+                                <label class="input-control text cell colspan7">
+                                    <input name="token" type="text" placeholder="Token" class="cell" disabled="disabled" />
+                                </label>
+                            </div>
+
+        				<div class="place-right">
+        					<input type="submit" class="button success"/>
+        				</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
